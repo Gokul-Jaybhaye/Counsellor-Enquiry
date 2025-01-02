@@ -5,5 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.springbok.entity.Counsellerentity;
 
 public interface CounsellorRepo extends JpaRepository<Counsellerentity, Integer> {
+	public Counsellerentity findByEmailandPwd(String email,String pwd);
 
 }

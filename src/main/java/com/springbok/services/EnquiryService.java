@@ -2,7 +2,7 @@ package com.springbok.services;
 
 import java.util.List;
 
-import com.springbok.dto.CounsellorDTO;
+//import com.springbok.dto.CounsellorDTO;
 import com.springbok.dto.DashboardRepo;
 import com.springbok.dto.EnquiryDTO;
 import com.springbok.dto.EnquiryFilterDTO;

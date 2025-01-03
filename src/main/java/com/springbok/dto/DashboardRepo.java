@@ -4,9 +4,9 @@ import lombok.Data;
 
 @Data
 public class DashboardRepo {
-	private Long totalEnqCount;
-	private Long openEnqCount;
-	private Long enrolledEnqCount;
-	private Long lostEnqCount;
+	private Integer totalEnqCount;
+	private Integer openEnqCount;
+	private Integer enrolledEnqCount;
+	private Integer lostEnqCount;
 
 }

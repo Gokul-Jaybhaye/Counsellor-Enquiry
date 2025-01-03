@@ -9,7 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.criteria.Join;
+//import jakarta.persistence.criteria.Join;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,7 +26,7 @@ public class EnquiryEntity {
 	private String classMode; 
     private String course;
     private String enqStatus;
-    @ManyToMany
+    @ManyToMany //(mappedBy = "counsellor")
     @JoinColumn(name="counsellor_id")
     private Counsellerentity counsellor;
 }

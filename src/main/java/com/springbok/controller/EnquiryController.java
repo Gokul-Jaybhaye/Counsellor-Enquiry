@@ -1,4 +1,4 @@
-package in.google.controller;
+package com.springbok.controller;
 
 import org.springframework.stereotype.Controller;
 

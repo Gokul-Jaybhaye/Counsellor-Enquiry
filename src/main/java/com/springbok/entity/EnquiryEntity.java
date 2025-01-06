@@ -1,8 +1,8 @@
-package com.springbok.Enquiryentity;
+package com.springbok.entity;
 
-import com.springbok.entity.Counsellerentity;
 
-//import jakarta.persistence.CascadeType;
+
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,5 +30,5 @@ public class EnquiryEntity {
     private String enqStatus;
     @ManyToOne
     @JoinColumn(name="counsellor_id")
-    private Counsellerentity counsellor;
+    private CounsellorEntity counsellor;
 }

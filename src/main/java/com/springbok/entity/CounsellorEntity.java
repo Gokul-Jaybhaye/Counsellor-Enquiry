@@ -2,8 +2,6 @@ package com.springbok.entity;
 
 import java.util.List;
 
-import com.springbok.Enquiryentity.EnquiryEntity;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,10 +16,10 @@ import lombok.Setter;
 @Table(name ="Counsellor_tab")
 @Setter
 @Getter
-public class Counsellerentity {
+public class CounsellorEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer counsellorid;
+	private Integer counsellorId;
 	private String name;
 	private String email;
 	private String pwd;

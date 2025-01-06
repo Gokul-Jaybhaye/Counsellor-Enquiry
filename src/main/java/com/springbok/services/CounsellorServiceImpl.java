@@ -4,16 +4,18 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.springbok.counsellerrepo.CounsellorRepo;
 import com.springbok.dto.CounsellorDTO;
-import com.springbok.entity.Counsellerentity;
+import com.springbok.entity.CounsellorEntity;
+import com.springbok.repo.CounsellorRepo;
 @Service
 public class CounsellorServiceImpl implements CounsellorService {
 	@Autowired
-	private CounsellorRepo counsellorrepo;
+	private CounsellorRepo counsellorRepo;
+	
+	
 	@Override
 	public CounsellorDTO loggin(CounsellorDTO counsellorDto) {
-	Counsellerentity entity=counsellorrepo.findByEmailandPwd(counsellorDto.getEmail(), counsellorDto.getPwd());
+		CounsellorEntity entity=counsellorRepo.findByEmailAndPwd(counsellorDto.getEmail(), counsellorDto.getPwd());
 		if(entity !=null) {
 			CounsellorDTO dto=new CounsellorDTO();
 			BeanUtils.copyProperties(entity,dto);
@@ -21,21 +23,23 @@ public class CounsellorServiceImpl implements CounsellorService {
 		}
 		return null;
 	}
-
+	
+	//UniqueEmailCheck
 	@Override
 	public boolean uniqueEmailCheck(String email) {
-		Counsellerentity entity= counsellorrepo.findByEmail(email);
+		// TODO Auto-generated method stub
+		CounsellorEntity entity= counsellorRepo.findByEmail(email);
 		return entity==null;
 		
 	}
 
 	@Override
 	public boolean register(CounsellorDTO counsellorDTO) {
-		// TODO Auto-generated method 
-		Counsellerentity entity=new Counsellerentity();
+		CounsellorEntity entity=new CounsellorEntity();
 		BeanUtils.copyProperties(counsellorDTO, entity);
-		Counsellerentity saveentity=counsellorrepo.save(entity);
-		return null!=saveentity.getCounsellorid();
+		CounsellorEntity saveEntity=counsellorRepo.save(entity);
+		return null!=saveEntity.getCounsellorId();
+		
 	}
 
 }

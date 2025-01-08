@@ -31,21 +31,88 @@ public class CounsellorController {
 		
 	}
 	
-	@PostMapping("/login")
-	public String handleLogin(HttpServletRequest req, @ModelAttribute CounsellorDTO counsellor,Model model) {
-		
-		CounsellorDTO counsellorDto=counsellorService.loggin(counsellor);
-		if(counsellorDto==null) {
-			model.addAttribute("emsg", "Invalid Credintial");
-		    return "index";
-	   }else {
-		   Integer counsellorId= counsellorDto.getCounsellorId();
-		   HttpSession session= req.getSession(true);
-		   session.setAttribute("counsellorId", counsellorId);
-		   DashboardRepo dashboardDto=enqService.getDashboardInfo(counsellorId);
-		   model.addAttribute("dashboardDto", dashboardDto);
-		   return"dashboard";
-	   }
+	@GetMapping("/logout")
+	public String logout(HttpServletRequest req, Model model) {
+
+		HttpSession session = req.getSession(false);
+		session.invalidate();
+
+		CounsellorDTO cdto = new CounsellorDTO();
+		model.addAttribute("counsellor", cdto);
+
+		return "index";
 	}
 
+	@PostMapping("/login")
+	public String handleLogin(HttpServletRequest req, CounsellorDTO counsellor, Model model) {
+
+		CounsellorDTO counsellorDTO = counsellorService.loggin(counsellor);
+
+		if (counsellorDTO == null) {
+
+			CounsellorDTO cdto = new CounsellorDTO();
+			model.addAttribute("counsellor", cdto);
+
+			model.addAttribute("emsg", "Invalid Credentials");
+			return "index";
+
+		} else {
+			Integer counsellorId = counsellorDTO.getCounsellorId();
+
+			// store counsellorId in http session obj
+			HttpSession session = req.getSession(true);
+			session.setAttribute("counsellorId", counsellorId);
+
+			DashboardRepo dashboardDto = enqService.getDashboardInfo(counsellorId);
+
+			model.addAttribute("dashboardDto", dashboardDto);
+
+			return "dashboard";
+		}
+	}
+
+	@GetMapping("/register")
+	public String registerPage(Model model) {
+
+		CounsellorDTO cdto = new CounsellorDTO();
+		model.addAttribute("counsellor", cdto);
+
+		return "register";
+	}
+
+	@PostMapping("/register")
+	public String handleRegister(@ModelAttribute CounsellorDTO counsellor, Model model) {
+		boolean unique = counsellorService.uniqueEmailCheck(counsellor.getEmail());
+		if (unique) {
+			boolean register = counsellorService.register(counsellor);
+			if (register) {
+				model.addAttribute("smsg", "Registration Success");
+			} else {
+				model.addAttribute("emsg", "Registration Failed");
+			}
+		} else {
+			model.addAttribute("emsg", "Enter Unique Email");
+		}
+		return "register";
+	}
+
+	@GetMapping("/dashboard")
+	public String displayDashboard(HttpServletRequest req, Model model) {
+
+		HttpSession session = req.getSession(false);
+		Integer counsellorId = (Integer) session.getAttribute("counsellorId");
+
+		DashboardRepo dashboardDto = enqService.getDashboardInfo(counsellorId);
+
+		model.addAttribute("dashboardDto", dashboardDto);
+
+		return "dashboard";
+
+	}
+	
+	
+	
+	
 }
+
+

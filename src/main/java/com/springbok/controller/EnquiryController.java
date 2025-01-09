@@ -25,7 +25,7 @@ public class EnquiryController {
 	
 	
 	@GetMapping("/edit-enquiry")
-	public String editEnquriy(@RequestParam("enqId") Integer enqId, 
+	public String editEnquriy(@RequestParam Integer enqId, 
 								Model model) {
 		
 		EnquiryDTO enqDto = enqService.getEnquiriyById(enqId);
@@ -45,7 +45,7 @@ public class EnquiryController {
 	
 	@PostMapping("/add-enquiry")
 	public String addEnquiry(HttpServletRequest req, 
-							@ModelAttribute("enquiry")EnquiryDTO enquiry, 
+							@ModelAttribute EnquiryDTO enquiry, 
 							Model model) {
 		
 		HttpSession session = req.getSession(false);
@@ -78,7 +78,7 @@ public class EnquiryController {
 	}
 	
 	@PostMapping("/filter-enquiries")
-	public String filterEnquires(HttpServletRequest req, @ModelAttribute("filterDTO") EnquiryFilterDTO filterDTO, Model model) {
+	public String filterEnquires(HttpServletRequest req, @ModelAttribute EnquiryFilterDTO filterDTO, Model model) {
 		
 		HttpSession session = req.getSession(false);
 		Integer counsellorId = (Integer) session.getAttribute("counsellorId");

@@ -44,7 +44,7 @@ public class CounsellorController {
 	}
 
 	@PostMapping("/login")
-	public String handleLogin(HttpServletRequest req, CounsellorDTO counsellor, Model model) {
+	public String handleLogin(HttpServletRequest req,  CounsellorDTO counsellor, Model model) {
 
 		CounsellorDTO counsellorDTO = counsellorService.loggin(counsellor);
 
@@ -81,7 +81,7 @@ public class CounsellorController {
 	}
 
 	@PostMapping("/register")
-	public String handleRegister(@ModelAttribute CounsellorDTO counsellor, Model model) {
+	public String handleRegister(@ModelAttribute("counsellor") CounsellorDTO counsellor, Model model) {
 		boolean unique = counsellorService.uniqueEmailCheck(counsellor.getEmail());
 		if (unique) {
 			boolean register = counsellorService.register(counsellor);

@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class EnquiryDTO {
+	private Integer enqId;
 	private String stuName;
 	private String stuPhone;
 	
